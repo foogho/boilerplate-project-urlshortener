@@ -42,6 +42,23 @@ app.post('/api/shorturl', async (req, res, next) => {
   }
 });
 
+app.get('/api/shorturl/:shortUrl', async (req, res, next) => {
+  try {
+    const shortUrl = req.params.shortUrl;
+    const url = await Url.findOne({
+      short_url: shortUrl,
+    });
+    if (!url) {
+      res.json({
+        error: 'No short URL found for the given input',
+      });
+    }
+    res.redirect(url.url);
+  } catch (error) {
+    next(error);
+  }
+});
+
 app.use((err, req, res, next) => {
   if (err.name === 'ValidationError') {
     return res.json({
