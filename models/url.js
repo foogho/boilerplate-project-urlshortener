@@ -24,7 +24,7 @@ const urlSchema = new mongoose.Schema(
 );
 
 function urlValidator(v) {
-  const urlPattern = /^(https?:\/\/)(([a-zA-Z0-9]+\.[a-zA-Z]+)+)(\/.+)?$/;
+  const urlPattern = /^(https?:\/\/)(([a-zA-Z0-9-]+\.[a-zA-Z]+)+)(\/.+)?$/;
   console.log(v.match(urlPattern)[2]);
   return new Promise((resolve, reject) => {
     if (!v.match(urlPattern)) {
